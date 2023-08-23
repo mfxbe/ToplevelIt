@@ -17,7 +17,7 @@ static void not_care(){/*nobody cares*/};
 //handle closing of toplevel
 static void z_toplevel_handle_close(void* data, struct zwlr_foreign_toplevel_handle_v1*){
 	ToplevelItWindow* win = (ToplevelItWindow*) data;
-	toplevel_window_changed(win);
+	toplevel_window_closed(win);
 	toplevelit_manager_remove_window(tplManager, win);
 }
 
@@ -25,7 +25,7 @@ static void z_toplevel_handle_close(void* data, struct zwlr_foreign_toplevel_han
 static void z_toplevel_handle_app(void* data, struct zwlr_foreign_toplevel_handle_v1*, const char *id){
 	ToplevelItWindow* win = (ToplevelItWindow*) data;
 	toplevel_window_set_app_id(win, id);
-	toplevel_window_changed(win);
+	toplevel_window_opened(win);
 }
 
 //struct for ft_handle_toplevel (possible actions of/on windows)

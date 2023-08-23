@@ -4,6 +4,8 @@
 
 enum {
   CHANGED,
+  OPENED,
+  CLOSED,
   LAST_SIGNAL
 };
 static guint toplevelit_window_signals[LAST_SIGNAL] = { 0 };
@@ -26,9 +28,36 @@ static void toplevelit_window_class_init(ToplevelItWindowClass *klass){
 	object_class->finalize = toplevelit_window_finalize;
 	
 	toplevelit_window_signals[CHANGED] = g_signal_newv("changed",
-		G_TYPE_FROM_CLASS(object_class), 
-		G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-		NULL, NULL, NULL, NULL, G_TYPE_NONE, 0, NULL);
+														G_TYPE_FROM_CLASS(object_class), 
+														G_SIGNAL_RUN_LAST,
+														NULL,
+														NULL,
+														NULL,
+														NULL,
+														G_TYPE_NONE,
+														0,
+														NULL);
+														
+	toplevelit_window_signals[OPENED] = g_signal_newv("opened",
+														G_TYPE_FROM_CLASS(object_class), 
+														G_SIGNAL_RUN_LAST,
+														NULL,
+														NULL,
+														NULL,
+														NULL,
+														G_TYPE_NONE,
+														0,
+														NULL);
+	toplevelit_window_signals[CLOSED] = g_signal_newv("closed",
+														G_TYPE_FROM_CLASS(object_class), 
+														G_SIGNAL_RUN_LAST,
+														NULL,
+														NULL,
+														NULL,
+														NULL,
+														G_TYPE_NONE,
+														0,
+														NULL);
 }
 
 static void toplevelit_window_init(ToplevelItWindow*){
@@ -39,7 +68,11 @@ ToplevelItWindow *toplevelit_window_new(void){
 	return g_object_new(TOPLEVELIT_TYPE_WINDOW, 0);
 }
 
-void toplevel_window_changed(ToplevelItWindow *win){
+void toplevel_window_closed(ToplevelItWindow *win){
+	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
+}
+
+void toplevel_window_opened(ToplevelItWindow *win){
 	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
 }
 

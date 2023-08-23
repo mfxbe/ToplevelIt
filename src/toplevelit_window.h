@@ -15,6 +15,7 @@ G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, G
 ToplevelItWindow *toplevelit_window_new (void);
 gchar *toplevel_window_get_app_id(ToplevelItWindow*);
 void toplevel_window_set_app_id(ToplevelItWindow*, const gchar*);
-void toplevel_window_changed(ToplevelItWindow*);
+void toplevel_window_opened(ToplevelItWindow*);
+void toplevel_window_closed(ToplevelItWindow*);
 
 #endif
