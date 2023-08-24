@@ -10,6 +10,8 @@ G_DECLARE_FINAL_TYPE (ToplevelItManager, toplevelit_manager, TOPLEVELIT, MANAGER
 //Functions
 ToplevelItManager *toplevelit_manager_new (void);
 GList* toplevelit_manager_get_windows(ToplevelItManager*);
+
+//internal functions
 void toplevelit_manager_add_window(ToplevelItManager*, ToplevelItWindow*);
 void toplevelit_manager_remove_window(ToplevelItManager*, ToplevelItWindow*);
 

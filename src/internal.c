@@ -1,18 +1,17 @@
 #include <glib.h>
 #include <wayland-client.h>
-#include "toplevelit.h"
+#include "toplevelit_manager.h"
 #include "toplevelit_window.h"
 #include "internal.h"
 #include "../build/extra/foreign-toplevel.h"
 
 struct wl_display *wlDisplay = NULL;
-struct wl_seat* wlSeat;
 struct wl_registry* wlRegistry;
 static struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
 ToplevelItManager* tplManager;
 
 //there are some unimportant signals which must be connected this function is used for those
-static void not_care(){/*nobody cares*/};
+static void not_care(){}
 
 //handle closing of toplevel
 static void z_toplevel_handle_close(void* data, struct zwlr_foreign_toplevel_handle_v1*){
@@ -21,26 +20,63 @@ static void z_toplevel_handle_close(void* data, struct zwlr_foreign_toplevel_han
 	toplevelit_manager_remove_window(tplManager, win);
 }
 
-//handling a newly opend toplevel
-static void z_toplevel_handle_app(void* data, struct zwlr_foreign_toplevel_handle_v1*, const char *id){
+//handling a newly opened toplevel
+static void z_toplevel_handle_app(void* data, struct zwlr_foreign_toplevel_handle_v1 *toplevel, const char *id){
 	ToplevelItWindow* win = (ToplevelItWindow*) data;
-	toplevel_window_set_app_id(win, id);
+	toplevel_window_set_app_id(win, toplevel, id);
 	toplevel_window_opened(win);
 }
 
+//handle state change of window
+static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_array *state){
+	ToplevelItWindow* win = (ToplevelItWindow*) data;
+
+	uint32_t *entry;
+	gboolean isActive = FALSE;
+	wl_array_for_each(entry, state){
+		switch (*entry){
+			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
+				isActive = TRUE;
+				toplevel_window_set_active(win, TRUE);
+				break;
+			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN:
+				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_FULLSCREEN);
+				break;
+			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MAXIMIZED:
+				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MAXIMIZED);
+				break;
+			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MINIMIZED:
+				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+				break;
+			default:
+				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
+				break;
+		}
+		if(isActive == FALSE){
+			toplevel_window_set_active(win, FALSE);
+		}
+	}
+}
+
+void z_toplevel_handle_title(void*, struct zwlr_foreign_toplevel_handle_v1*, const char*){}
+void z_toplevel_handle_output_enter(void*, struct zwlr_foreign_toplevel_handle_v1*, struct wl_output *){}
+void z_toplevel_handle_output_leave(void*, struct zwlr_foreign_toplevel_handle_v1*, struct wl_output *){}
+void z_toplevel_handle_done(void*, struct zwlr_foreign_toplevel_handle_v1*){}
+void z_toplevel_handle_parent(void*, struct zwlr_foreign_toplevel_handle_v1*, struct zwlr_foreign_toplevel_handle_v1 *){}
+
 //struct for ft_handle_toplevel (possible actions of/on windows)
 static const struct zwlr_foreign_toplevel_handle_v1_listener z_toplevel_listener = {
-	.title = not_care,
+	.title = z_toplevel_handle_title,
 	.app_id = z_toplevel_handle_app,
-	.output_enter = not_care,
-	.output_leave = not_care,
-	.done = not_care,
-	.state = not_care,
+	.output_enter = z_toplevel_handle_output_enter,
+	.output_leave = z_toplevel_handle_output_leave,
+	.done =  z_toplevel_handle_done,
+	.state = z_toplevel_handle_state,
 	.closed = z_toplevel_handle_close,
-	.parent = not_care
+	.parent = z_toplevel_handle_parent
 };
 
-//handle if new toplevel is opend
+//handle if new toplevel is opened
 static void toplevel_manager_handle_toplevel(void*, struct zwlr_foreign_toplevel_manager_v1*,  struct zwlr_foreign_toplevel_handle_v1 *ztoplevel){
 	ToplevelItWindow *win = toplevelit_window_new();
 	toplevelit_manager_add_window(tplManager, win);
@@ -51,13 +87,13 @@ static void toplevel_manager_handle_toplevel(void*, struct zwlr_foreign_toplevel
 //struct
 static const struct zwlr_foreign_toplevel_manager_v1_listener toplevel_listener = {
 	.toplevel = toplevel_manager_handle_toplevel,
-	.finished = not_care,
+	.finished = (void (*)(void *, struct zwlr_foreign_toplevel_manager_v1 *)) not_care,
 };
 
 //connecting from global wayland listener to foreign toplevel listener
-static void wl_registry_handle_global(void*, struct wl_registry *wlRegistry, uint32_t id, const char *interface, uint32_t version){
+static void wl_registry_handle_global(void*, struct wl_registry *wlRegistryL, uint32_t id, const char *interface, uint32_t version){
 	if (strcmp (interface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0){
-		toplevel_manager = wl_registry_bind(wlRegistry, id, &zwlr_foreign_toplevel_manager_v1_interface, version);
+		toplevel_manager = wl_registry_bind(wlRegistryL, id, &zwlr_foreign_toplevel_manager_v1_interface, version);
 		zwlr_foreign_toplevel_manager_v1_add_listener(toplevel_manager, &toplevel_listener, NULL);
 	}
 }
@@ -65,7 +101,7 @@ static void wl_registry_handle_global(void*, struct wl_registry *wlRegistry, uin
 //struct for toplevel_manager_start/global listener
 static const struct wl_registry_listener wlRegistryListener = {
     .global = wl_registry_handle_global,
-    .global_remove = not_care,
+    .global_remove = (void (*)(void *, struct wl_registry *, uint32_t)) not_care,
 };
 
 int toplevel_manager_runner(){

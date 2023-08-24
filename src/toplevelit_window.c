@@ -1,6 +1,7 @@
 #include <glib-object.h>
 #include "toplevelit_window.h"
 #include "internal.h"
+#include "../build/extra/foreign-toplevel.h"
 
 //Possible actions ----------------------------------------------------
 
@@ -16,9 +17,10 @@ static guint toplevelit_window_signals[LAST_SIGNAL] = { 0 };
 
 struct _ToplevelItWindow{
     GObject parent_instance;
+	struct zwlr_foreign_toplevel_handle_v1* toplevel;
     char* app_id;
     int status;
-    int active;
+    gboolean active;
 };
 G_DEFINE_TYPE(ToplevelItWindow, toplevelit_window, G_TYPE_OBJECT)
 
@@ -68,7 +70,18 @@ static void toplevelit_window_init(ToplevelItWindow*){
 }
 
 //Functions etc. ----------------------------------------------------
+gchar *toplevel_window_get_app_id(ToplevelItWindow *self){
+		return(self->app_id);
+}
 
+void toplevel_window_set_state(ToplevelItWindow *self, int state){
+	toplevel_window_set_state_only(self, state);
+}
+void toplevel_window_set_active(ToplevelItWindow *self, gboolean active){
+	toplevel_window_set_active_only(self, active);
+}
+
+//internal functions etc. ----------------------------------------------------
 ToplevelItWindow *toplevelit_window_new(void){
 	return g_object_new(TOPLEVELIT_TYPE_WINDOW, 0);
 }
@@ -81,16 +94,17 @@ void toplevel_window_opened(ToplevelItWindow *win){
 	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
 }
 
-void toplevel_window_set_app_id(ToplevelItWindow *self, const gchar* data){
+//Setting the app id, as this is the first thing of a new toplevel we also do some other stuff here as well
+void toplevel_window_set_app_id(ToplevelItWindow *self, struct zwlr_foreign_toplevel_handle_v1 *toplevel, const gchar* data){
 	if(self->app_id == NULL){
 		self->app_id = g_strdup_printf("%s", data);
+		self->toplevel = toplevel;
 	}
 }
 
-gchar *toplevel_window_get_app_id(ToplevelItWindow *self){
-		return(self->app_id);
+void toplevel_window_set_state_only(ToplevelItWindow *self, int state){
+	self->status = state;
 }
-
-
-//internal functions etc. ----------------------------------------------------
-
+void toplevel_window_set_active_only(ToplevelItWindow *self, gboolean active){
+	self->active = active;
+}

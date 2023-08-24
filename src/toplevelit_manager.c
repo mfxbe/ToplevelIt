@@ -1,5 +1,5 @@
 #include <glib-object.h>
-#include "toplevelit.h"
+#include "toplevelit_manager.h"
 #include "toplevelit_window.h"
 #include "internal.h"
 
