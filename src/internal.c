@@ -6,9 +6,36 @@
 #include "../build/extra/foreign-toplevel.h"
 
 struct wl_display *wlDisplay = NULL;
+struct wl_seat* wlSeat;
 struct wl_registry* wlRegistry;
 static struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
 ToplevelItManager* tplManager;
+
+void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int state){
+	switch(state) {
+		case TOPLEVELIT_WINDOW_STATUS_MINIMIZED:
+			zwlr_foreign_toplevel_handle_v1_set_minimized(toplevel);
+			break;
+		case TOPLEVELIT_WINDOW_STATUS_MAXIMIZED:
+			zwlr_foreign_toplevel_handle_v1_set_maximized(toplevel);
+			break;
+		case TOPLEVELIT_WINDOW_STATUS_FULLSCREEN:
+			zwlr_foreign_toplevel_handle_v1_set_fullscreen(toplevel, NULL);
+			break;
+		case TOPLEVELIT_WINDOW_STATUS_DEFAULT:
+		default:
+			zwlr_foreign_toplevel_handle_v1_unset_minimized(toplevel);
+			zwlr_foreign_toplevel_handle_v1_unset_maximized(toplevel);
+			zwlr_foreign_toplevel_handle_v1_unset_fullscreen(toplevel);
+			break;
+	}
+}
+
+void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *toplevel){
+	if(wlSeat != NULL) {
+		zwlr_foreign_toplevel_handle_v1_activate(toplevel, wlSeat);
+	}
+}
 
 //there are some unimportant signals which must be connected this function is used for those
 static void not_care(){}
@@ -91,10 +118,13 @@ static const struct zwlr_foreign_toplevel_manager_v1_listener toplevel_listener 
 };
 
 //connecting from global wayland listener to foreign toplevel listener
+struct wl_seat *seat = NULL;
 static void wl_registry_handle_global(void*, struct wl_registry *wlRegistryL, uint32_t id, const char *interface, uint32_t version){
 	if (strcmp (interface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0){
 		toplevel_manager = wl_registry_bind(wlRegistryL, id, &zwlr_foreign_toplevel_manager_v1_interface, version);
 		zwlr_foreign_toplevel_manager_v1_add_listener(toplevel_manager, &toplevel_listener, NULL);
+	} else if (strcmp(interface, wl_seat_interface.name) == 0 && seat == NULL) {
+		seat = wl_registry_bind(wlRegistryL, id, &wl_seat_interface, version);
 	}
 }
 

@@ -76,9 +76,13 @@ gchar *toplevel_window_get_app_id(ToplevelItWindow *self){
 
 void toplevel_window_set_state(ToplevelItWindow *self, int state){
 	toplevel_window_set_state_only(self, state);
+	internal_set_state(self->toplevel, state);
 }
 void toplevel_window_set_active(ToplevelItWindow *self, gboolean active){
 	toplevel_window_set_active_only(self, active);
+	if(active == TRUE){
+		internal_set_active(self->toplevel);
+	}
 }
 
 //internal functions etc. ----------------------------------------------------
