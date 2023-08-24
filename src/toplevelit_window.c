@@ -2,6 +2,8 @@
 #include "toplevelit_window.h"
 #include "internal.h"
 
+//Possible actions ----------------------------------------------------
+
 enum {
   CHANGED,
   OPENED,
@@ -9,6 +11,8 @@ enum {
   LAST_SIGNAL
 };
 static guint toplevelit_window_signals[LAST_SIGNAL] = { 0 };
+
+//GObject stuff ----------------------------------------------------
 
 struct _ToplevelItWindow{
     GObject parent_instance;
@@ -37,7 +41,6 @@ static void toplevelit_window_class_init(ToplevelItWindowClass *klass){
 														G_TYPE_NONE,
 														0,
 														NULL);
-														
 	toplevelit_window_signals[OPENED] = g_signal_newv("opened",
 														G_TYPE_FROM_CLASS(object_class), 
 														G_SIGNAL_RUN_LAST,
@@ -64,6 +67,8 @@ static void toplevelit_window_init(ToplevelItWindow*){
 	//Init
 }
 
+//Functions etc. ----------------------------------------------------
+
 ToplevelItWindow *toplevelit_window_new(void){
 	return g_object_new(TOPLEVELIT_TYPE_WINDOW, 0);
 }
@@ -85,3 +90,7 @@ void toplevel_window_set_app_id(ToplevelItWindow *self, const gchar* data){
 gchar *toplevel_window_get_app_id(ToplevelItWindow *self){
 		return(self->app_id);
 }
+
+
+//internal functions etc. ----------------------------------------------------
+

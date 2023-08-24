@@ -12,6 +12,7 @@
 G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, GObject)
 #define TOPLEVELIT_TYPE_WINDOW toplevelit_window_get_type()
 
+//Functions
 ToplevelItWindow *toplevelit_window_new (void);
 gchar *toplevel_window_get_app_id(ToplevelItWindow*);
 void toplevel_window_set_app_id(ToplevelItWindow*, const gchar*);
