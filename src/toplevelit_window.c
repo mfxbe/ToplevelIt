@@ -70,17 +70,17 @@ static void toplevelit_window_init(ToplevelItWindow *) {
 }
 
 //Functions etc. ----------------------------------------------------
-gchar *toplevel_window_get_app_id(ToplevelItWindow *self) {
+gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
 	return (self->app_id);
 }
 
-void toplevel_window_set_state(ToplevelItWindow *self, int state) {
-	toplevel_window_set_state_only(self, state);
+void toplevelit_window_set_state(ToplevelItWindow *self, int state) {
+    toplevelit_window_set_state_only(self, state);
 	internal_set_state(self->toplevel, state);
 }
 
-void toplevel_window_set_active(ToplevelItWindow *self, gboolean active) {
-	toplevel_window_set_active_only(self, active);
+void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
+    toplevelit_window_set_active_only(self, active);
 	if (active == TRUE) {
 		internal_set_active(self->toplevel);
 	}
@@ -91,30 +91,30 @@ ToplevelItWindow *toplevelit_window_new(void) {
 	return g_object_new(TOPLEVELIT_TYPE_WINDOW, 0);
 }
 
-void toplevel_window_closed(ToplevelItWindow *win) {
+void toplevelit_window_closed(ToplevelItWindow *win) {
 	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
 }
 
-void toplevel_window_opened(ToplevelItWindow *win) {
+void toplevelit_window_opened(ToplevelItWindow *win) {
 	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
 }
 
 //Setting the app id, as this is the first thing of a new toplevel we also do some other stuff here as well
-void toplevel_window_set_app_id(ToplevelItWindow *self,
-								struct zwlr_foreign_toplevel_handle_v1 *toplevel,
-								const gchar *data) {
+void toplevelit_window_set_app_id(ToplevelItWindow *win,
+                                  struct zwlr_foreign_toplevel_handle_v1 *toplevel,
+                                  const gchar *data) {
 	if (self->app_id == NULL) {
 		self->app_id = g_strdup_printf("%s", data);
 		self->toplevel = toplevel;
 	}
 }
 
-void toplevel_window_set_state_only(ToplevelItWindow *self, int state) {
+void toplevelit_window_set_state_only(ToplevelItWindow *self, int) {
 	self->status = state;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }
 
-void toplevel_window_set_active_only(ToplevelItWindow *self, gboolean active) {
+void toplevelit_window_set_active_only(ToplevelItWindow *self, gboolean) {
 	self->active = active;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }

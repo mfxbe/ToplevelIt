@@ -10,14 +10,14 @@ int checker(gpointer data) {
 	printf("\r");
 	for (l = list; l != NULL; l = l->next) {
 		ToplevelItWindow *win = l->data;
-		printf("%s, ", toplevel_window_get_app_id(win));
+		printf("%s, ", toplevelit_window_get_app_id(win));
 	}
 	printf("                                                          ");
 	return (TRUE);
 }
 
 void changed_event_test(ToplevelItManager *, ToplevelItWindow *win) {
-	g_print("wirklich bei %s\n", toplevel_window_get_app_id(win));
+	g_print("wirklich bei %s\n", toplevelit_window_get_app_id(win));
 }
 
 int main() {

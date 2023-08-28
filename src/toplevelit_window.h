@@ -17,25 +17,27 @@ G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, G
 //Functions
 ToplevelItWindow *toplevelit_window_new(void);
 
-gchar *toplevel_window_get_app_id(ToplevelItWindow *);
+gchar *toplevelit_window_get_app_id(ToplevelItWindow *);
 
-gchar *toplevel_window_get_icon_name(ToplevelItWindow *);
+gchar *toplevelit_window_get_icon_name(ToplevelItWindow *);
 
-gchar *toplevel_window_get_status(ToplevelItWindow *);
+gchar *toplevelit_window_get_state(ToplevelItWindow *);
 
-void toplevel_window_set_state(ToplevelItWindow *, int);
+gchar *toplevelit_window_get_name(ToplevelItWindow*);
 
-void toplevel_window_set_active(ToplevelItWindow *, gboolean);
+void toplevelit_window_set_state(ToplevelItWindow *, int);
+
+void toplevelit_window_set_active(ToplevelItWindow *, gboolean);
 
 //internal functions
-void toplevel_window_set_app_id(ToplevelItWindow *, struct zwlr_foreign_toplevel_handle_v1 *, const gchar *);
+void toplevelit_window_set_app_id(ToplevelItWindow *, struct zwlr_foreign_toplevel_handle_v1 *, const gchar *);
 
-void toplevel_window_opened(ToplevelItWindow *);
+void toplevelit_window_opened(ToplevelItWindow *);
 
-void toplevel_window_closed(ToplevelItWindow *);
+void toplevelit_window_closed(ToplevelItWindow *);
 
-void toplevel_window_set_state_only(ToplevelItWindow *, int);
+void toplevelit_window_set_state_only(ToplevelItWindow *, int);
 
-void toplevel_window_set_active_only(ToplevelItWindow *, gboolean);
+void toplevelit_window_set_active_only(ToplevelItWindow *, gboolean);
 
 #endif
