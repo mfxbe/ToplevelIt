@@ -18,7 +18,8 @@ struct _ToplevelItWindow {
 	GObject parent_instance;
 	struct zwlr_foreign_toplevel_handle_v1 *toplevel;
 	char *app_id;
-	int status;
+	char *title;
+	int state;
 	gboolean active;
 };
 
@@ -70,15 +71,63 @@ static void toplevelit_window_init(ToplevelItWindow *) {
 }
 
 //Functions etc. ----------------------------------------------------
+/**
+ * toplevelit_window_get_app_id:
+ * @self ToplevelItManager
+ *
+ * Returns the app id of the this window
+ *
+ * Returns: @gchar
+ **/
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
 	return (self->app_id);
 }
 
+/**
+ * toplevelit_window_get_app_id:
+ * @self ToplevelItManager
+ *
+ * Returns the app id of the this window
+ *
+ * Returns: @gchar
+ **/
+gchar *toplevelit_window_get_title(ToplevelItWindow *self) {
+	return (self->title);
+}
+
+/**
+ * toplevelit_window_get_state:
+ * @self ToplevelItManager
+ *
+ * Returns the state of the this window
+ *
+ * Returns: @int TOPLEVELIT_WINDOW_STATUS
+ **/
+int toplevelit_window_get_state(ToplevelItWindow *self) {
+	return (self->state);
+}
+
+/**
+ * toplevelit_window_set_state:
+ * @self ToplevelItManager
+ * @state TOPLEVELIT_WINDOW_STATUS
+ *
+ * Set the state of the window. Like minimized, maximized, default.
+ *
+ **/
 void toplevelit_window_set_state(ToplevelItWindow *self, int state) {
     toplevelit_window_set_state_only(self, state);
 	internal_set_state(self->toplevel, state);
 }
 
+/**
+ * toplevelit_window_set_active:
+ * @self ToplevelItManager
+ * @active gboolean
+ *
+ * Makes the window the active one.
+ *
+ **/
 void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
     toplevelit_window_set_active_only(self, active);
 	if (active == TRUE) {
@@ -109,8 +158,12 @@ void toplevelit_window_set_app_id(ToplevelItWindow *self,
 	}
 }
 
+void toplevelit_window_set_title(ToplevelItWindow *self, gchar *title){
+    self->title = title;
+}
+
 void toplevelit_window_set_state_only(ToplevelItWindow *self, int state) {
-	self->status = state;
+	self->state = state;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }
 

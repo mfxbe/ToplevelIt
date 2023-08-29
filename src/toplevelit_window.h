@@ -21,9 +21,9 @@ gchar *toplevelit_window_get_app_id(ToplevelItWindow *);
 
 gchar *toplevelit_window_get_icon_name(ToplevelItWindow *);
 
-gchar *toplevelit_window_get_state(ToplevelItWindow *);
+int toplevelit_window_get_state(ToplevelItWindow *);
 
-gchar *toplevelit_window_get_name(ToplevelItWindow*);
+gchar *toplevelit_window_get_title(ToplevelItWindow*);
 
 void toplevelit_window_set_state(ToplevelItWindow *, int);
 
@@ -39,5 +39,7 @@ void toplevelit_window_closed(ToplevelItWindow *);
 void toplevelit_window_set_state_only(ToplevelItWindow *, int);
 
 void toplevelit_window_set_active_only(ToplevelItWindow *, gboolean);
+
+void toplevelit_window_set_title(ToplevelItWindow *, gchar*);
 
 #endif

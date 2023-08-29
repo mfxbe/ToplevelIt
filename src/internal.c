@@ -85,7 +85,10 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 	}
 }
 
-void z_toplevel_handle_title(void *, struct zwlr_foreign_toplevel_handle_v1 *, const char *) {}
+void z_toplevel_handle_title(void *data, struct zwlr_foreign_toplevel_handle_v1 *, const char *title) {
+    ToplevelItWindow *win = (ToplevelItWindow *) data;
+    toplevelit_window_set_title(win, g_strdup_printf(title));
+}
 
 void z_toplevel_handle_output_enter(void *, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_output *) {}
 
