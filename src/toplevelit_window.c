@@ -100,7 +100,7 @@ void toplevelit_window_opened(ToplevelItWindow *win) {
 }
 
 //Setting the app id, as this is the first thing of a new toplevel we also do some other stuff here as well
-void toplevelit_window_set_app_id(ToplevelItWindow *win,
+void toplevelit_window_set_app_id(ToplevelItWindow *self,
                                   struct zwlr_foreign_toplevel_handle_v1 *toplevel,
                                   const gchar *data) {
 	if (self->app_id == NULL) {
@@ -109,12 +109,12 @@ void toplevelit_window_set_app_id(ToplevelItWindow *win,
 	}
 }
 
-void toplevelit_window_set_state_only(ToplevelItWindow *self, int) {
+void toplevelit_window_set_state_only(ToplevelItWindow *self, int state) {
 	self->status = state;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }
 
-void toplevelit_window_set_active_only(ToplevelItWindow *self, gboolean) {
+void toplevelit_window_set_active_only(ToplevelItWindow *self, gboolean active) {
 	self->active = active;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }
