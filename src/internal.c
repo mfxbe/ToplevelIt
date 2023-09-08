@@ -3,7 +3,7 @@
 #include "toplevelit_manager.h"
 #include "toplevelit_window.h"
 #include "internal.h"
-#include "../build/extra/foreign-toplevel.h"
+#include "foreign-toplevel.h"
 
 struct wl_display *wlDisplay = NULL;
 struct wl_seat *wlSeat;

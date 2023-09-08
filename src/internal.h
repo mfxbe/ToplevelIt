@@ -2,7 +2,7 @@
 #define INTERNAL_H
 
 #include "toplevelit_manager.h"
-#include "../build/extra/foreign-toplevel.h"
+#include "foreign-toplevel.h"
 
 void toplevel_manager_start(ToplevelItManager *);
 
