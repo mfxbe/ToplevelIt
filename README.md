@@ -1,6 +1,6 @@
 # ToplevelIT
 
-A GObject based library for the Wayland foreign-window-protocoll.
+A GObject based library for the wayland foreign-window-protocol. At gives easier access to window controlling and managing. Might be used in panels, docks, etc...
 
 ## Build
 
