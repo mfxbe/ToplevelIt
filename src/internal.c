@@ -43,15 +43,15 @@ static void not_care() {}
 //handle closing of toplevel
 static void z_toplevel_handle_close(void *data, struct zwlr_foreign_toplevel_handle_v1 *) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
-	toplevel_window_closed(win);
+    toplevelit_window_closed(win);
 	toplevelit_manager_remove_window(tplManager, win);
 }
 
 //handling a newly opened toplevel
 static void z_toplevel_handle_app(void *data, struct zwlr_foreign_toplevel_handle_v1 *toplevel, const char *id) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
-	toplevel_window_set_app_id(win, toplevel, id);
-	toplevel_window_opened(win);
+    toplevelit_window_set_app_id(win, toplevel, id);
+    toplevelit_window_opened(win);
 }
 
 //handle state change of window
@@ -64,28 +64,31 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 		switch (*entry) {
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
 				isActive = TRUE;
-				toplevel_window_set_active(win, TRUE);
+				toplevelit_window_set_active(win, TRUE);
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN:
-				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_FULLSCREEN);
+                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_FULLSCREEN);
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MAXIMIZED:
-				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MAXIMIZED);
+                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MAXIMIZED);
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MINIMIZED:
-				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
 				break;
 			default:
-				toplevel_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
+                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
 				break;
 		}
 		if (isActive == FALSE) {
-			toplevel_window_set_active(win, FALSE);
+			toplevelit_window_set_active(win, FALSE);
 		}
 	}
 }
 
-void z_toplevel_handle_title(void *, struct zwlr_foreign_toplevel_handle_v1 *, const char *) {}
+void z_toplevel_handle_title(void *data, struct zwlr_foreign_toplevel_handle_v1 *, const char *title) {
+    ToplevelItWindow *win = (ToplevelItWindow *) data;
+    toplevelit_window_set_title(win, g_strdup_printf(title));
+}
 
 void z_toplevel_handle_output_enter(void *, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_output *) {}
 
