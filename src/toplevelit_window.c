@@ -141,11 +141,11 @@ ToplevelItWindow *toplevelit_window_new(void) {
 }
 
 void toplevelit_window_closed(ToplevelItWindow *win) {
-	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
+	g_signal_emit(win, toplevelit_window_signals[CLOSED], 0);
 }
 
 void toplevelit_window_opened(ToplevelItWindow *win) {
-	g_signal_emit(win, toplevelit_window_signals[CHANGED], 0);
+	g_signal_emit(win, toplevelit_window_signals[OPENED], 0);
 }
 
 //Setting the app id, as this is the first thing of a new toplevel we also do some other stuff here as well

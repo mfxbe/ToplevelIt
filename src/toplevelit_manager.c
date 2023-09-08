@@ -104,17 +104,25 @@ GList *toplevelit_manager_get_windows(ToplevelItManager *self) {
 
 //internal functions etc. ----------------------------------------------------
 
-//helper function to emit the changed signal when any of the windows changed
+//helper functions to emit the changed signal when any of the windows changed
 void ce_changed(ToplevelItWindow *win, gpointer self) {
 	g_signal_emit((ToplevelItManager *) self, toplevelit_manager_signals[WINDOW_CHANGED], 0, win);
+}
+
+void ce_opened(ToplevelItWindow *win, gpointer self) {
+	g_signal_emit((ToplevelItManager *) self, toplevelit_manager_signals[WINDOW_OPENED], 0, win);
+}
+
+void ce_closed(ToplevelItWindow *win, gpointer self) {
+	g_signal_emit((ToplevelItManager *) self, toplevelit_manager_signals[WINDOW_CLOSED], 0, win);
 }
 
 //adding a view to the list and connect signals
 void toplevelit_manager_add_window(ToplevelItManager *self, ToplevelItWindow *win) {
 	self->children = g_list_append(self->children, win);
 	g_signal_connect(win, "changed", (GCallback) ce_changed, self);
-	g_signal_connect(win, "opened", (GCallback) ce_changed, self);
-	g_signal_connect(win, "closed", (GCallback) ce_changed, self);
+	g_signal_connect(win, "opened", (GCallback) ce_opened, self);
+	g_signal_connect(win, "closed", (GCallback) ce_closed, self);
 }
 
 //internal

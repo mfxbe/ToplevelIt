@@ -2,7 +2,7 @@
 #define TOPLEVELIT_WINDOW_H
 
 #include <glib-object.h>
-#include "../build/extra/foreign-toplevel.h"
+#include "foreign-toplevel.h"
 
 //some constants
 #define TOPLEVELIT_WINDOW_STATUS_DEFAULT 0
