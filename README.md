@@ -29,12 +29,12 @@ void do_something(){
 
 
 int main(){
-    GMainLoop *loop = g_main_loop_new(NULL, TRUE);
+    GMainLoop *loop = g_main_loop_new(NULL, TRUE); //only if there isn't already one
 
     ToplevelItManager *m = toplevelit_manager_new();
     //toplevelit_manager_get_windows(m);
 
-    g_signal_connect(m, "window-opened", do_something, NULL);
+    g_signal_connect(m, "window-opened", G_CALLBACK(do_something), NULL);
 
     g_main_loop_run(loop);
     return 0;
