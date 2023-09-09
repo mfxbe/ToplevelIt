@@ -47,3 +47,6 @@ Compile and run it with:
 gcc example.c `pkg-config --libs --cflags gobject-2.0` -ltoplevelit  -o example
 ./example
 ```
+
+## Usage
+See `toplevelit_manager.h` and `toplevelit_window.h` for what can be done.
