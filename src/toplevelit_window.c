@@ -87,6 +87,18 @@ gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
 }
 
 /**
+ * toplevelit_window_get_win_id:
+ * @self ToplevelItManager
+ *
+ * Returns the app win of the this window. This is not per application.
+ *
+ * Returns: @gchar
+ **/
+int toplevelit_window_get_win_id(ToplevelItWindow *self) {
+	return (self->win_id);
+}
+
+/**
  * toplevelit_window_get_app_id:
  * @self ToplevelItManager
  *
@@ -96,6 +108,18 @@ gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
  **/
 gchar *toplevelit_window_get_title(ToplevelItWindow *self) {
 	return (self->title);
+}
+
+/**
+ * toplevelit_window_get_active:
+ * @self ToplevelItWindow
+ *
+ * Returns if win is active
+ *
+ * Returns: @gboolean
+ **/
+gboolean toplevelit_window_get_active(ToplevelItWindow *self) {
+	return (self->active);
 }
 
 /**

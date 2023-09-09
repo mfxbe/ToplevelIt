@@ -19,11 +19,15 @@ ToplevelItWindow *toplevelit_window_new(void);
 
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *);
 
+int toplevelit_window_get_win_id(ToplevelItWindow *);
+
 gchar *toplevelit_window_get_icon_name(ToplevelItWindow *);
 
 int toplevelit_window_get_state(ToplevelItWindow *);
 
 gchar *toplevelit_window_get_title(ToplevelItWindow*);
+
+gboolean toplevelit_window_get_active(ToplevelItWindow*);
 
 void toplevelit_window_set_state(ToplevelItWindow *, int);
 
