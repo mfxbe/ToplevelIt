@@ -71,7 +71,7 @@ static void toplevelit_manager_class_init(ToplevelItManagerClass *klass) {
 
 static void toplevelit_manager_init(ToplevelItManager *self) {
 	toplevel_manager_start(self);
-
+	lastWinIDCounter = 0;
 	/*ToplevelItWindow *win = toplevelit_window_new();
 	self->children = g_list_append(self->children, win);*/
 }

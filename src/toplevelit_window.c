@@ -20,6 +20,7 @@ struct _ToplevelItWindow {
 	char *app_id;
 	char *title;
 	int state;
+	int win_id;
 	gboolean active;
 };
 
@@ -66,8 +67,10 @@ static void toplevelit_window_class_init(ToplevelItWindowClass *klass) {
 													  NULL);
 }
 
-static void toplevelit_window_init(ToplevelItWindow *) {
+static void toplevelit_window_init(ToplevelItWindow *self) {
 	//Init
+	self->win_id =lastWinIDCounter;
+	lastWinIDCounter++;
 }
 
 //Functions etc. ----------------------------------------------------

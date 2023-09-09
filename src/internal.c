@@ -10,6 +10,7 @@ struct wl_seat *wlSeat;
 struct wl_registry *wlRegistry;
 static struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
 ToplevelItManager *tplManager;
+int lastWinIDCounter;
 
 void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int state) {
 	switch (state) {
