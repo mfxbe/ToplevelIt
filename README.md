@@ -2,6 +2,8 @@
 
 A C and GObject based library for the wayland foreign-window-protocol. It gives easier access to window controlling and managing. Might be used in panels, docks, etc...
 
+It can be used from C and should also work in any language with gobject-introspection support.
+
 ## Build
 
 To build the library run the following commands.
