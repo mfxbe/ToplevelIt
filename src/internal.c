@@ -2,6 +2,7 @@
 #include <wayland-client.h>
 #include "toplevelit_manager.h"
 #include "toplevelit_window.h"
+#include "toplevelit.h"
 #include "internal.h"
 #include "foreign-toplevel.h"
 

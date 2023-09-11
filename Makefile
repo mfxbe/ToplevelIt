@@ -2,9 +2,7 @@ all:
 	mkdir -p build/
 
 	gcc $(filter-out src/main.c, $(wildcard src/*.c)) -g -Wall -Wextra -rdynamic -std=gnu2x $(shell pkg-config --libs --cflags gobject-2.0 wayland-client) -shared -fPIC -o build/libtoplevelit.so -lm
-	cp src/toplevelit_manager.h build/toplevelit_manager.h
-	cp src/toplevelit_window.h build/toplevelit_window.h
-	cp src/foreign-toplevel.h build/foreign-toplevel.h
+	cp src/toplevelit.h build/toplevelit.h
 
 test:
 	mkdir -p build/tests

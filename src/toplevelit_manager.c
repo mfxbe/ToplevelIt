@@ -1,6 +1,7 @@
 #include <glib-object.h>
 #include "toplevelit_manager.h"
 #include "toplevelit_window.h"
+#include "toplevelit.h"
 #include "internal.h"
 
 //Possible actions ----------------------------------------------------
