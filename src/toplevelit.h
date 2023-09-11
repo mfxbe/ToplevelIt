@@ -4,6 +4,8 @@
 //includes
 #include <glib-object.h>
 
+G_BEGIN_DECLS
+
 //some constants
 #define TOPLEVELIT_WINDOW_STATUS_DEFAULT 0
 #define TOPLEVELIT_WINDOW_STATUS_MINIMIZED 1
@@ -21,22 +23,22 @@ G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, G
 //Public functions of Manager (internal see toplevelit_manager.h) -----------------
 
 /**
- * toplevelit_manager_new:
+ * toplevelit_manager_new:(constructor):
  *
  * Get a manager for handling hte toplevels. This usually is the first
  * step that needs to be done.
  *
- * Returns: ToplevelItManager
+ * Returns: (transfer full): Obj instance
  **/
 ToplevelItManager *toplevelit_manager_new(void);
 
 /**
  * toplevelit_manager_get_windows:
- * @self ToplevelItManager
+ * @self A #ToplevelItManager
  *
  * Returns all windows that are currently opened on all views.
  *
- * Returns: GList
+ * Returns: (element-type ToplevelIt.Window) (transfer container): GList
  **/
 GList *toplevelit_manager_get_windows(ToplevelItManager *self);
 
@@ -48,7 +50,7 @@ GList *toplevelit_manager_get_windows(ToplevelItManager *self);
  *
  * Returns the app id of the this window
  *
- * Returns: gchar
+ * Returns: The AppID
  **/
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *self);
 
@@ -68,7 +70,7 @@ int toplevelit_window_get_win_id(ToplevelItWindow *self);
  *
  * Returns the icon name
  *
- * Returns: gchar
+ * Returns: (transfer full): gchar
  **/
 gchar *toplevelit_window_get_icon_name(ToplevelItWindow *self);
 
@@ -88,7 +90,7 @@ int toplevelit_window_get_state(ToplevelItWindow *self);
  *
  * Returns the title of the window
  *
- * Returns: gchar
+ * Returns: (transfer full): gchar
  **/
 gchar *toplevelit_window_get_title(ToplevelItWindow *self);
 
@@ -109,7 +111,6 @@ gboolean toplevelit_window_get_active(ToplevelItWindow *self);
  *
  * Change the status of a window
  *
- * Returns: TRUE or FALSE
  **/
 void toplevelit_window_set_state(ToplevelItWindow *self, int state);
 
@@ -122,5 +123,7 @@ void toplevelit_window_set_state(ToplevelItWindow *self, int state);
  *
  **/
 void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active);
+
+G_END_DECLS
 
 #endif //TOPLEVELIT_TOPLEVELIT_H

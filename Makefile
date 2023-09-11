@@ -3,7 +3,7 @@ all:
 
 	gcc $(filter-out src/main.c, $(wildcard src/*.c)) -g -Wall -Wextra -rdynamic -std=gnu2x $(shell pkg-config --libs --cflags gobject-2.0 wayland-client) -shared -fPIC -o build/libtoplevelit.so -lm
 	cp src/toplevelit.h build/toplevelit.h
-	g-ir-scanner --namespace=ToplevelIt --symbol-prefix=toplevelit --nsversion=1.0 --library=toplevelit --pkg=gobject-2.0 --library-path=./build  -I./build --no-libtool src/toplevelit.h -o build/ToplevelIt-1.0.gir
+	g-ir-scanner --namespace=ToplevelIt --symbol-prefix=toplevelit --nsversion=1.0 --library=toplevelit --include=GObject-2.0 --library-path=./build  -I./build --no-libtool src/toplevelit.h -o build/ToplevelIt-1.0.gir
 	g-ir-compiler build/ToplevelIt-1.0.gir -o build/ToplevelIt-1.0.typelib
 
 

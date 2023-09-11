@@ -75,7 +75,7 @@ static void toplevelit_window_init(ToplevelItWindow *self) {
 
 //Functions etc. ----------------------------------------------------
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
-	return (self->app_id);
+	return (g_strdup_printf(self->app_id));
 }
 
 int toplevelit_window_get_win_id(ToplevelItWindow *self) {
@@ -83,7 +83,7 @@ int toplevelit_window_get_win_id(ToplevelItWindow *self) {
 }
 
 gchar *toplevelit_window_get_title(ToplevelItWindow *self) {
-	return (self->title);
+	return (g_strdup_printf(self->title));
 }
 
 gboolean toplevelit_window_get_active(ToplevelItWindow *self) {

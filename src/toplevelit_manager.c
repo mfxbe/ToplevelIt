@@ -17,7 +17,7 @@ static guint toplevelit_manager_signals[LAST_SIGNAL] = {0};
 //GObject stuff ----------------------------------------------------
 
 struct _ToplevelItManager {
-	GObject parent_instance;
+	GObjectClass parent_instance;
 	GList *children;
 };
 
