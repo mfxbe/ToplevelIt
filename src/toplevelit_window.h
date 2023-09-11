@@ -10,6 +10,8 @@
 // FOR PUBLIC FUNCTIONS AND TYPE DECLARATION SEE toplevelit.h
 
 //internal functions
+ToplevelItWindow *toplevelit_window_new(void);
+
 void toplevelit_window_set_app_id(ToplevelItWindow *, struct zwlr_foreign_toplevel_handle_v1 *, const gchar *);
 
 void toplevelit_window_opened(ToplevelItWindow *);

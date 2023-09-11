@@ -79,26 +79,10 @@ static void toplevelit_manager_init(ToplevelItManager *self) {
 
 //Functions etc. ----------------------------------------------------
 
-/**
- * toplevelit_manager_new:
- *
- * Get a manager for handling hte toplevels. This usually is the first
- * step that needs to be done.
- *
- * Returns: @ToplevelItManager
- **/
 ToplevelItManager *toplevelit_manager_new(void) {
 	return g_object_new(TOPLEVELIT_TYPE_MANAGER, 0);
 }
 
-/**
- * toplevelit_manager_get_windows:
- * @self ToplevelItManager
- *
- * Returns all windows that are currently opened on all views.
- *
- * Returns: @GList
- **/
 GList *toplevelit_manager_get_windows(ToplevelItManager *self) {
 	return (self->children);
 }

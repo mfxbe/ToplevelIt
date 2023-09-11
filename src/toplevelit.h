@@ -1,6 +1,9 @@
 #ifndef TOPLEVELIT_TOPLEVELIT_H
 #define TOPLEVELIT_TOPLEVELIT_H
 
+//includes
+#include <glib-object.h>
+
 //some constants
 #define TOPLEVELIT_WINDOW_STATUS_DEFAULT 0
 #define TOPLEVELIT_WINDOW_STATUS_MINIMIZED 1
@@ -15,28 +18,109 @@ G_DECLARE_FINAL_TYPE (ToplevelItManager, toplevelit_manager, TOPLEVELIT, MANAGER
 G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, GObject)
 
 
-//Public functions of Manager (internal see toplevelit_manager.h)
+//Public functions of Manager (internal see toplevelit_manager.h) -----------------
+
+/**
+ * toplevelit_manager_new:
+ *
+ * Get a manager for handling hte toplevels. This usually is the first
+ * step that needs to be done.
+ *
+ * Returns: ToplevelItManager
+ **/
 ToplevelItManager *toplevelit_manager_new(void);
 
-GList *toplevelit_manager_get_windows(ToplevelItManager *);
+/**
+ * toplevelit_manager_get_windows:
+ * @self ToplevelItManager
+ *
+ * Returns all windows that are currently opened on all views.
+ *
+ * Returns: GList
+ **/
+GList *toplevelit_manager_get_windows(ToplevelItManager *self);
 
-//Public functions of Window (internal see toplevelit_window.h)
-ToplevelItWindow *toplevelit_window_new(void);
+//Public functions of Window (internal see toplevelit_window.h) -----------------
 
-gchar *toplevelit_window_get_app_id(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_app_id:
+ * @self ToplevelItManager
+ *
+ * Returns the app id of the this window
+ *
+ * Returns: gchar
+ **/
+gchar *toplevelit_window_get_app_id(ToplevelItWindow *self);
 
-int toplevelit_window_get_win_id(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_win_id:
+ * @self ToplevelItManager
+ *
+ * Returns the app win of the this window. This is not per application.
+ *
+ * Returns: ID
+ **/
+int toplevelit_window_get_win_id(ToplevelItWindow *self);
 
-gchar *toplevelit_window_get_icon_name(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_icon_name:
+ * @self ToplevelItManager
+ *
+ * Returns the icon name
+ *
+ * Returns: gchar
+ **/
+gchar *toplevelit_window_get_icon_name(ToplevelItWindow *self);
 
-int toplevelit_window_get_state(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_state:
+ * @self ToplevelItManager
+ *
+ * Returns the state.
+ *
+ * Returns: int
+ **/
+int toplevelit_window_get_state(ToplevelItWindow *self);
 
-gchar *toplevelit_window_get_title(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_title:
+ * @self ToplevelItManager
+ *
+ * Returns the title of the window
+ *
+ * Returns: gchar
+ **/
+gchar *toplevelit_window_get_title(ToplevelItWindow *self);
 
-gboolean toplevelit_window_get_active(ToplevelItWindow *);
+/**
+ * toplevelit_window_get_active:
+ * @self ToplevelItWindow
+ *
+ * Returns if win is active
+ *
+ * Returns: TRUE or FALSE
+ **/
+gboolean toplevelit_window_get_active(ToplevelItWindow *self);
 
-void toplevelit_window_set_state(ToplevelItWindow *, int);
+/**
+ * toplevelit_window_set_state:
+ * @self ToplevelItWindow
+ * @state TOPLEVELIT_WINDOW_STATUS
+ *
+ * Change the status of a window
+ *
+ * Returns: TRUE or FALSE
+ **/
+void toplevelit_window_set_state(ToplevelItWindow *self, int state);
 
-void toplevelit_window_set_active(ToplevelItWindow *, gboolean);
+/**
+ * toplevelit_window_set_active:
+ * @self ToplevelItWindow
+ * @active TRUE or FALSE
+ *
+ * Set if win is active
+ *
+ **/
+void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active);
 
 #endif //TOPLEVELIT_TOPLEVELIT_H

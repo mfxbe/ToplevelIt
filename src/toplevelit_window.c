@@ -69,94 +69,38 @@ static void toplevelit_window_class_init(ToplevelItWindowClass *klass) {
 
 static void toplevelit_window_init(ToplevelItWindow *self) {
 	//Init
-	self->win_id =lastWinIDCounter;
+	self->win_id = lastWinIDCounter;
 	lastWinIDCounter++;
 }
 
 //Functions etc. ----------------------------------------------------
-/**
- * toplevelit_window_get_app_id:
- * @self ToplevelItManager
- *
- * Returns the app id of the this window
- *
- * Returns: @gchar
- **/
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *self) {
 	return (self->app_id);
 }
 
-/**
- * toplevelit_window_get_win_id:
- * @self ToplevelItManager
- *
- * Returns the app win of the this window. This is not per application.
- *
- * Returns: @gchar
- **/
 int toplevelit_window_get_win_id(ToplevelItWindow *self) {
 	return (self->win_id);
 }
 
-/**
- * toplevelit_window_get_app_id:
- * @self ToplevelItManager
- *
- * Returns the app id of the this window
- *
- * Returns: @gchar
- **/
 gchar *toplevelit_window_get_title(ToplevelItWindow *self) {
 	return (self->title);
 }
 
-/**
- * toplevelit_window_get_active:
- * @self ToplevelItWindow
- *
- * Returns if win is active
- *
- * Returns: @gboolean
- **/
 gboolean toplevelit_window_get_active(ToplevelItWindow *self) {
 	return (self->active);
 }
 
-/**
- * toplevelit_window_get_state:
- * @self ToplevelItManager
- *
- * Returns the state of the this window
- *
- * Returns: @int TOPLEVELIT_WINDOW_STATUS
- **/
 int toplevelit_window_get_state(ToplevelItWindow *self) {
 	return (self->state);
 }
 
-/**
- * toplevelit_window_set_state:
- * @self ToplevelItManager
- * @state TOPLEVELIT_WINDOW_STATUS
- *
- * Set the state of the window. Like minimized, maximized, default.
- *
- **/
 void toplevelit_window_set_state(ToplevelItWindow *self, int state) {
-    toplevelit_window_set_state_only(self, state);
+	toplevelit_window_set_state_only(self, state);
 	internal_set_state(self->toplevel, state);
 }
 
-/**
- * toplevelit_window_set_active:
- * @self ToplevelItManager
- * @active gboolean
- *
- * Makes the window the active one.
- *
- **/
 void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
-    toplevelit_window_set_active_only(self, active);
+	toplevelit_window_set_active_only(self, active);
 	if (active == TRUE) {
 		internal_set_active(self->toplevel);
 	}
@@ -177,16 +121,16 @@ void toplevelit_window_opened(ToplevelItWindow *win) {
 
 //Setting the app id, as this is the first thing of a new toplevel we also do some other stuff here as well
 void toplevelit_window_set_app_id(ToplevelItWindow *self,
-                                  struct zwlr_foreign_toplevel_handle_v1 *toplevel,
-                                  const gchar *data) {
+								  struct zwlr_foreign_toplevel_handle_v1 *toplevel,
+								  const gchar *data) {
 	if (self->app_id == NULL) {
 		self->app_id = g_strdup_printf("%s", data);
 		self->toplevel = toplevel;
 	}
 }
 
-void toplevelit_window_set_title(ToplevelItWindow *self, gchar *title){
-    self->title = title;
+void toplevelit_window_set_title(ToplevelItWindow *self, gchar *title) {
+	self->title = title;
 }
 
 void toplevelit_window_set_state_only(ToplevelItWindow *self, int state) {
