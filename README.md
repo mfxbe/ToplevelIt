@@ -51,4 +51,4 @@ gcc example.c `pkg-config --libs --cflags gobject-2.0` -ltoplevelit  -o example
 ```
 
 ## Usage
-See `toplevelit_manager.h` and `toplevelit_window.h` for what can be done.
+See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/master/src/toplevelit.h) for what can be done.
