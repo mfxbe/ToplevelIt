@@ -162,5 +162,5 @@ void toplevel_manager_start(ToplevelItManager *d) {
 	wl_display_roundtrip(wlDisplay);
 	wl_display_flush(wlDisplay);
 
-	g_idle_add_full(G_PRIORITY_HIGH_IDLE, G_SOURCE_FUNC(toplevel_manager_runner), NULL, NULL);
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, G_SOURCE_FUNC(toplevel_manager_runner), NULL, NULL);
 }
