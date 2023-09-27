@@ -37,16 +37,22 @@ static void activate(GtkApplication *app){
 
 	//Get a list of windows
 	GList* ws = toplevelit_manager_get_windows(tliM);
-	gboolean foundOwn = FALSE;
+	ToplevelItWindow *ownWin = NULL;
 	for(uint i=0; i<g_list_length(ws); i++){
 		ToplevelItWindow *w = (ToplevelItWindow*) g_list_nth_data(ws, i);
 		assert(TOPLEVELIT_IS_WINDOW(w));
 		if (strcmp(toplevelit_window_get_title(w), "ToplevelItTestWindow") == 0){
-			foundOwn = TRUE;
+			ownWin = w;
 		}
 	}
-	assert(foundOwn);
+	assert(ownWin);
 	do_m_loop();
+
+	//Test minimizing
+	toplevelit_window_set_state(ownWin, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+	do_m_loop();
+	assert(toplevelit_window_get_state(ownWin) == TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+
 
 	//Get close signal of window
 	g_signal_connect(tliM, "window-closed", G_CALLBACK(test_close), NULL);
