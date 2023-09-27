@@ -18,7 +18,7 @@ G_DECLARE_FINAL_TYPE (ToplevelItManager, toplevelit_manager, TOPLEVELIT, MANAGER
 
 //Define the toplevel window GObject
 G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, GObject)
-
+#define TOPLEVELIT_TYPE_WINDOW toplevelit_window_get_type()
 
 //Public functions of Manager (internal see toplevelit_manager.h) -----------------
 
