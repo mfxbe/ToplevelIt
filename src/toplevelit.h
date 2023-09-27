@@ -7,9 +7,28 @@
 G_BEGIN_DECLS
 
 //some constants
+/**
+ * TOPLEVELIT_WINDOW_STATUS_DEFAULT: (value 0)
+ * The default state for toplevel windows.
+ */
 #define TOPLEVELIT_WINDOW_STATUS_DEFAULT 0
+
+/**
+ * TOPLEVELIT_WINDOW_STATUS_MINIMIZED: (value 1)
+ * The minimized state for toplevel windows (e.g. only visible in taskbar).
+ */
 #define TOPLEVELIT_WINDOW_STATUS_MINIMIZED 1
+
+/**
+ * TOPLEVELIT_WINDOW_STATUS_MAXIMIZED: (value 3)
+ * The maximized state for toplevel windows. Uses all space but not the full screen.
+ */
 #define TOPLEVELIT_WINDOW_STATUS_MAXIMIZED 3
+
+/**
+ * TOPLEVELIT_WINDOW_STATUS_FULLSCREEN: (value 4)
+ * The fullscreen state for toplevel windows.
+ */
 #define TOPLEVELIT_WINDOW_STATUS_FULLSCREEN 4
 
 //Define our main TopLevelItManager GObject
