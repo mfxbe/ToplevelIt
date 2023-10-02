@@ -31,7 +31,7 @@ static void activate(GtkApplication *app){
 	ToplevelItManager *tliM = toplevelit_manager_new();
 	do_m_loop();
 
-	//Get open signal of window
+	//Get signal of window
 	g_signal_connect(tliM, "window-closed", G_CALLBACK(test_open), NULL);
 	do_m_loop();
 
@@ -59,7 +59,35 @@ static void activate(GtkApplication *app){
 	gtk_window_close(GTK_WINDOW(window));
 	do_m_loop();
 
+	//Open another window
+	GtkWidget *window2 = gtk_application_window_new(app);
+	gtk_window_set_title(GTK_WINDOW(window2), "ToplevelItTestWindow");
+	gtk_window_present(GTK_WINDOW(window2));
+	do_m_loop();
+
+	//Check if existent now
+	GList* ws2 = toplevelit_manager_get_windows(tliM);
+	do_m_loop();
+	do_m_loop();
+	ToplevelItWindow *ownWin2 = NULL;
+	for(uint i=0; i<g_list_length(ws2); i++){
+		ToplevelItWindow *w2 = (ToplevelItWindow*) g_list_nth_data(ws2, i);
+		assert(TOPLEVELIT_IS_WINDOW(w2));
+		if (strcmp(toplevelit_window_get_title(w2), "ToplevelItTestWindow") == 0){
+			ownWin2 = w2;
+		}
+	}
+	assert(ownWin2);
+	do_m_loop();
+
+	//Close from library and check if closed
+	toplevelit_window_close(ownWin2);
+	do_m_loop();
+	assert(GTK_IS_WIDGET(window2) == FALSE);
+
+
 	g_application_quit(G_APPLICATION(app));
+	printf("Tests worked");
 }
 
 int main(int argc, char **argv){

@@ -143,6 +143,15 @@ void toplevelit_window_set_state(ToplevelItWindow *self, int state);
  **/
 void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active);
 
+/**
+ * toplevelit_window_close:
+ * @self ToplevelItWindow
+ *
+ * Ask the window to close itself.
+ *
+ **/
+void toplevelit_window_close(ToplevelItWindow *self);
+
 G_END_DECLS
 
 #endif //TOPLEVELIT_TOPLEVELIT_H

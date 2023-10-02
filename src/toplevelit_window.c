@@ -106,6 +106,10 @@ void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
 	}
 }
 
+void toplevelit_window_close(ToplevelItWindow *self){
+	internal_close(self->toplevel);
+}
+
 //internal functions etc. ----------------------------------------------------
 ToplevelItWindow *toplevelit_window_new(void) {
 	return g_object_new(TOPLEVELIT_TYPE_WINDOW, 0);

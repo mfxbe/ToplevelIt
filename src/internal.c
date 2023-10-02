@@ -39,6 +39,10 @@ void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *toplevel) {
 	}
 }
 
+void internal_close(struct zwlr_foreign_toplevel_handle_v1 *toplevel){
+	zwlr_foreign_toplevel_handle_v1_close(toplevel);
+}
+
 //there are some unimportant signals which must be connected this function is used for those
 static void not_care() {}
 

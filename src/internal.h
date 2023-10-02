@@ -12,4 +12,6 @@ void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *, int);
 
 void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *);
 
+void internal_close(struct zwlr_foreign_toplevel_handle_v1 *);
+
 #endif
