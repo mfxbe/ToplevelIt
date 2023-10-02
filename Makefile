@@ -17,6 +17,11 @@ wlscan:
 	wayland-scanner private-code data/wlr-foreign-toplevel-management-unstable-v1.xml src/foreign-toplevel.c
 	wayland-scanner client-header data/wlr-foreign-toplevel-management-unstable-v1.xml src/foreign-toplevel.h
 
+docs:
+	mkdir -p build/docs
+	g-ir-doc-tool --language C -o build/docs build/ToplevelIt-1.0.gir
+	yelp-build html build/docs -o build/docs
+
 clean:
 	rm -rf build
 	rm src/foreign-toplevel.c
