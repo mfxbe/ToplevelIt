@@ -84,16 +84,6 @@ gchar *toplevelit_window_get_app_id(ToplevelItWindow *self);
 int toplevelit_window_get_win_id(ToplevelItWindow *self);
 
 /**
- * toplevelit_window_get_icon_name:
- * @self ToplevelItManager
- *
- * Returns the icon name
- *
- * Returns: (transfer full): gchar
- **/
-gchar *toplevelit_window_get_icon_name(ToplevelItWindow *self);
-
-/**
  * toplevelit_window_get_state:
  * @self ToplevelItManager
  *
