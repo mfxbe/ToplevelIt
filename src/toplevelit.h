@@ -142,6 +142,25 @@ void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active);
  **/
 void toplevelit_window_close(ToplevelItWindow *self);
 
+/**
+ * toplevelit_window_set_data:
+ * @self ToplevelItWindow
+ * @data Pointer to data
+ *
+ * Allows to add custom data to the window object.
+ *
+ **/
+void toplevelit_window_set_data(ToplevelItWindow *self, void *data);
+
+/**
+ * toplevelit_window_get_data:
+ * @self ToplevelItWindow
+ *
+ * Allows to get stored custom data from the window object.
+ *
+ **/
+void *toplevelit_window_get_data(ToplevelItWindow *self);
+
 G_END_DECLS
 
 #endif //TOPLEVELIT_TOPLEVELIT_H

@@ -22,6 +22,7 @@ struct _ToplevelItWindow {
 	int state;
 	int win_id;
 	gboolean active;
+	void *data;
 };
 
 G_DEFINE_TYPE(ToplevelItWindow, toplevelit_window, G_TYPE_OBJECT)
@@ -108,6 +109,14 @@ void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
 
 void toplevelit_window_close(ToplevelItWindow *self){
 	internal_close(self->toplevel);
+}
+
+void toplevelit_window_set_data(ToplevelItWindow *self, void *data){
+	self->data = data;
+}
+
+void *toplevelit_window_get_data(ToplevelItWindow *self){
+	return(self->data);
 }
 
 //internal functions etc. ----------------------------------------------------
