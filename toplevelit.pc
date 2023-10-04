@@ -1,0 +1,10 @@
+includedir=/usr/include
+libdir=/usr/lib/x86_64-linux-gnu
+
+Name: toplevelit
+Description: GObject based library for wlr-foreign-toplevel-management.
+URL: https://www.feritale.eu/git/mfxbe/ToplevelIt
+Version: 1.0.0
+Requires.private: gobject-2.0, wayland-client
+Libs: -L${libdir} -ltoplevelit
+Cflags: -I${includedir}/

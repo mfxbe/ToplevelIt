@@ -30,3 +30,16 @@ clean:
 run:
 	build/ToplevelIt
 
+install:
+	cp build/libtoplevelit.so /usr/lib/x86_64-linux-gnu/libtoplevelit.so
+	cp build/toplevelit.h /usr/include/toplevelit.h
+	cp build/ToplevelIt-1.0.gir /usr/share/gir-1.0/ToplevelIt-1.0.gir
+	cp build/ToplevelIt-1.0.typelib /usr/lib/x86_64-linux-gnu/girepository-1.0/ToplevelIt-1.0.typelib
+	cp toplevelit.pc  /usr/share/pkgconfig/toplevelit.pc
+
+uninstall:
+	rm /usr/lib/x86_64-linux-gnu/libtoplevelit.so
+	rm /usr/include/toplevelit.h
+	rm /usr/share/gir-1.0/ToplevelIt-1.0.gir
+	rm /usr/lib/x86_64-linux-gnu/girepository-1.0/ToplevelIt-1.0.typelib
+	rm /usr/share/pkgconfig/toplevelit.pc

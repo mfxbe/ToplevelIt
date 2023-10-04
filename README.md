@@ -12,7 +12,11 @@ make wlscan
 make
 ```
 
-An automatic installation option is not available at the moment.
+You can also install the library system-wide.
+
+```
+sudo make install
+```
 
 ## Example
 
