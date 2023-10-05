@@ -36,6 +36,8 @@ void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int st
 void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *toplevel) {
 	if (wlSeat != NULL) {
 		zwlr_foreign_toplevel_handle_v1_activate(toplevel, wlSeat);
+	} else {
+		g_print("Error: No seat.");
 	}
 }
 
@@ -133,15 +135,13 @@ static const struct zwlr_foreign_toplevel_manager_v1_listener toplevel_listener 
 };
 
 //connecting from global wayland listener to foreign toplevel listener
-struct wl_seat *seat = NULL;
-
 static void wl_registry_handle_global(void *, struct wl_registry *wlRegistryL, uint32_t id, const char *interface,
 									  uint32_t version) {
 	if (strcmp(interface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0) {
 		toplevel_manager = wl_registry_bind(wlRegistryL, id, &zwlr_foreign_toplevel_manager_v1_interface, version);
 		zwlr_foreign_toplevel_manager_v1_add_listener(toplevel_manager, &toplevel_listener, NULL);
-	} else if (strcmp(interface, wl_seat_interface.name) == 0 && seat == NULL) {
-		seat = wl_registry_bind(wlRegistryL, id, &wl_seat_interface, version);
+	} else if (strcmp(interface, wl_seat_interface.name) == 0 && wlSeat == NULL) {
+		wlSeat = wl_registry_bind(wlRegistryL, id, &wl_seat_interface, version);
 	}
 }
 
