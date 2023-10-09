@@ -8,6 +8,7 @@ enum {
 	CHANGED,
 	OPENED,
 	CLOSED,
+	TITLE_CHANGE,
 	LAST_SIGNAL
 };
 static guint toplevelit_window_signals[LAST_SIGNAL] = {0};
@@ -57,6 +58,16 @@ static void toplevelit_window_class_init(ToplevelItWindowClass *klass) {
 													  0,
 													  NULL);
 	toplevelit_window_signals[CLOSED] = g_signal_newv("closed",
+													  G_TYPE_FROM_CLASS(object_class),
+													  G_SIGNAL_RUN_LAST,
+													  NULL,
+													  NULL,
+													  NULL,
+													  NULL,
+													  G_TYPE_NONE,
+													  0,
+													  NULL);
+	toplevelit_window_signals[TITLE_CHANGE] = g_signal_newv("title-change",
 													  G_TYPE_FROM_CLASS(object_class),
 													  G_SIGNAL_RUN_LAST,
 													  NULL,
@@ -144,6 +155,7 @@ void toplevelit_window_set_app_id(ToplevelItWindow *self,
 
 void toplevelit_window_set_title(ToplevelItWindow *self, gchar *title) {
 	self->title = title;
+	g_signal_emit(self, toplevelit_window_signals[TITLE_CHANGE], 0);
 }
 
 void toplevelit_window_set_state_only(ToplevelItWindow *self, int state) {
