@@ -167,3 +167,11 @@ void toplevelit_window_set_active_only(ToplevelItWindow *self, gboolean active) 
 	self->active = active;
 	g_signal_emit(self, toplevelit_window_signals[CHANGED], 0);
 }
+
+void toplevelit_window_set_manager(ToplevelItWindow *self, ToplevelItManager *mng){
+	self->manager = mng;
+}
+
+ToplevelItManager *toplevelit_window_get_manager(ToplevelItWindow *self){
+	return self->manager;
+}

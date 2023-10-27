@@ -24,4 +24,8 @@ void toplevelit_window_set_active_only(ToplevelItWindow *, gboolean);
 
 void toplevelit_window_set_title(ToplevelItWindow *, gchar *);
 
+void toplevelit_window_set_manager(ToplevelItWindow *, ToplevelItManager *);
+
+ToplevelItManager *toplevelit_window_get_manager(ToplevelItWindow *);
+
 #endif

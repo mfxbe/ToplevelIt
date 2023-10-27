@@ -59,6 +59,7 @@ static void z_toplevel_handle_close(void *data, struct zwlr_foreign_toplevel_han
 static void z_toplevel_handle_app(void *data, struct zwlr_foreign_toplevel_handle_v1 *toplevel, const char *id) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
     toplevelit_window_set_app_id(win, toplevel, id);
+	toplevelit_window_set_manager(win, tplManager);
     toplevelit_window_opened(win);
 }
 
