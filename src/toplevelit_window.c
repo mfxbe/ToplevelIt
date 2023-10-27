@@ -108,12 +108,14 @@ int toplevelit_window_get_state(ToplevelItWindow *self) {
 }
 
 void toplevelit_window_set_state(ToplevelItWindow *self, int state) {
+	if(state == TOPLEVELIT_WINDOW_STATUS_MINIMIZED){
+		toplevelit_window_set_active(self, FALSE);
+	}
 	toplevelit_window_set_state_only(self, state);
 	internal_set_state(self->toplevel, state);
 }
 
 void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
-	toplevelit_window_set_active_only(self, active);
 	if (active == TRUE) {
 		internal_set_active(self->toplevel);
 		

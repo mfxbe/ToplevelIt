@@ -16,12 +16,18 @@ int lastWinIDCounter;
 void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int state) {
 	switch (state) {
 		case TOPLEVELIT_WINDOW_STATUS_MINIMIZED:
+			zwlr_foreign_toplevel_handle_v1_unset_maximized(toplevel);
+			zwlr_foreign_toplevel_handle_v1_unset_fullscreen(toplevel);
 			zwlr_foreign_toplevel_handle_v1_set_minimized(toplevel);
 			break;
 		case TOPLEVELIT_WINDOW_STATUS_MAXIMIZED:
+			zwlr_foreign_toplevel_handle_v1_unset_minimized(toplevel);
+			zwlr_foreign_toplevel_handle_v1_unset_fullscreen(toplevel);
 			zwlr_foreign_toplevel_handle_v1_set_maximized(toplevel);
 			break;
 		case TOPLEVELIT_WINDOW_STATUS_FULLSCREEN:
+			zwlr_foreign_toplevel_handle_v1_unset_minimized(toplevel);
+			zwlr_foreign_toplevel_handle_v1_unset_maximized(toplevel);
 			zwlr_foreign_toplevel_handle_v1_set_fullscreen(toplevel, NULL);
 			break;
 		case TOPLEVELIT_WINDOW_STATUS_DEFAULT:
@@ -71,25 +77,25 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 	gboolean isActive = FALSE;
 	wl_array_for_each(entry, state) {
 		switch (*entry) {
-			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
-				isActive = TRUE;
-				toplevelit_window_set_active(win, TRUE);
-				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN:
-                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_FULLSCREEN);
+				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_FULLSCREEN);
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MAXIMIZED:
-                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MAXIMIZED);
+				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_MAXIMIZED);
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_MINIMIZED:
-                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_MINIMIZED);
+				break;
+			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
+				isActive = TRUE;
+				toplevelit_window_set_active_only(win, TRUE);
 				break;
 			default:
-                toplevelit_window_set_state(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
+				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
 				break;
 		}
 		if (isActive == FALSE) {
-			toplevelit_window_set_active(win, FALSE);
+			toplevelit_window_set_active_only(win, FALSE);
 		}
 	}
 }
