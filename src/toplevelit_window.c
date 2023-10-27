@@ -17,6 +17,7 @@ static guint toplevelit_window_signals[LAST_SIGNAL] = {0};
 
 struct _ToplevelItWindow {
 	GObject parent_instance;
+	ToplevelItManager *manager;
 	struct zwlr_foreign_toplevel_handle_v1 *toplevel;
 	char *app_id;
 	char *title;
