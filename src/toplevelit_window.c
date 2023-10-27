@@ -116,7 +116,17 @@ void toplevelit_window_set_active(ToplevelItWindow *self, gboolean active) {
 	toplevelit_window_set_active_only(self, active);
 	if (active == TRUE) {
 		internal_set_active(self->toplevel);
+		
+		//Set all to not active
+		GList *l = toplevelit_manager_get_windows(toplevelit_window_get_manager(self));
+		GList *e;
+		ToplevelItWindow *w;
+		for(e = l; e; e = e->next) {
+			w = e->data;
+			toplevelit_window_set_active_only(w, FALSE);
+		}
 	}
+	toplevelit_window_set_active_only(self, active);
 }
 
 void toplevelit_window_close(ToplevelItWindow *self){
