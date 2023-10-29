@@ -16,7 +16,6 @@ int lastWinIDCounter;
 void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int state) {
 	switch (state) {
 		case TOPLEVELIT_WINDOW_STATUS_MINIMIZED:
-			zwlr_foreign_toplevel_handle_v1_unset_maximized(toplevel);
 			zwlr_foreign_toplevel_handle_v1_unset_fullscreen(toplevel);
 			zwlr_foreign_toplevel_handle_v1_set_minimized(toplevel);
 			break;
@@ -27,7 +26,6 @@ void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int st
 			break;
 		case TOPLEVELIT_WINDOW_STATUS_FULLSCREEN:
 			zwlr_foreign_toplevel_handle_v1_unset_minimized(toplevel);
-			zwlr_foreign_toplevel_handle_v1_unset_maximized(toplevel);
 			zwlr_foreign_toplevel_handle_v1_set_fullscreen(toplevel, NULL);
 			break;
 		case TOPLEVELIT_WINDOW_STATUS_DEFAULT:
