@@ -5,6 +5,12 @@
 #include "foreign-toplevel.h"
 
 extern int lastWinIDCounter;
+extern struct wl_display *wlDisplay;
+extern struct wl_seat *wlSeat;
+extern struct wl_registry *wlRegistry;
+extern struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
+extern const struct wl_registry_listener wlRegistryListener;
+extern ToplevelItManager *tplManager;
 
 void toplevel_manager_start(ToplevelItManager *);
 
@@ -13,5 +19,10 @@ void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *, int);
 void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *);
 
 void internal_close(struct zwlr_foreign_toplevel_handle_v1 *);
+
+void toplevel_manager_runner();
+
+void toplevel_manager_start_no_gdk(ToplevelItManager *);
+
 
 #endif

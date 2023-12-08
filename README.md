@@ -3,13 +3,21 @@
 ToplevelIt is a small library, built with C and GObject, that makes working with Wayland's foreign-toplevel-protocol easy. It simplifies tasks like controlling and managing windows, making it a great fit for projects like panels, docks, and more.
 
 You can use ToplevelIt in C, and it should also play nicely with any programming language that supports GObject introspection. Whether you prefer C  or another language, ToplevelIt is here to simplify your interactions with Wayland's foreign-toplevel-protocol.
+
+## Dependencies
+* GObject
+* Wayland
+* A wayland-compositor supporting the foreign-toplevel protocol
+* Gtk4-Wayland (*optional*)
+
 ## Build
 
 To build the library, run the following commands.
 
 ```
 make wlscan
-make
+make #to build with gtk4
+make no-gdk #to build without gtk4
 ```
 
 You can also install the library system-wide.

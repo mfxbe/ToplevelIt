@@ -13,6 +13,7 @@ enum {
 	LAST_SIGNAL
 };
 static guint toplevelit_manager_signals[LAST_SIGNAL] = {0};
+int nogdk = FALSE;
 
 //GObject stuff ----------------------------------------------------
 
@@ -71,7 +72,12 @@ static void toplevelit_manager_class_init(ToplevelItManagerClass *klass) {
 }
 
 static void toplevelit_manager_init(ToplevelItManager *self) {
-	toplevel_manager_start(self);
+	if(nogdk == TRUE){
+		g_print("No GDK");
+		toplevel_manager_start_no_gdk(self);
+	} else {
+		toplevel_manager_start(self);
+	}
 	lastWinIDCounter = 0;
 	/*ToplevelItWindow *win = toplevelit_window_new();
 	self->children = g_list_append(self->children, win);*/
@@ -83,8 +89,17 @@ ToplevelItManager *toplevelit_manager_new(void) {
 	return g_object_new(TOPLEVELIT_TYPE_MANAGER, 0);
 }
 
+ToplevelItManager *toplevelit_manager_new_no_gdk(void) {
+	nogdk = TRUE;
+	return g_object_new(TOPLEVELIT_TYPE_MANAGER, 0);
+}
+
 GList *toplevelit_manager_get_windows(ToplevelItManager *self) {
 	return (self->children);
+}
+
+void toplevelit_manager_do_trip(ToplevelItManager *){
+	toplevel_manager_runner();
 }
 
 //internal functions etc. ----------------------------------------------------

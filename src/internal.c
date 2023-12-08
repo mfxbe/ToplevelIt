@@ -9,7 +9,7 @@
 struct wl_display *wlDisplay = NULL;
 struct wl_seat *wlSeat;
 struct wl_registry *wlRegistry;
-static struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
+struct zwlr_foreign_toplevel_manager_v1 *toplevel_manager;
 ToplevelItManager *tplManager;
 int lastWinIDCounter;
 
@@ -40,6 +40,7 @@ void internal_set_state(struct zwlr_foreign_toplevel_handle_v1 *toplevel, int st
 void internal_set_active(struct zwlr_foreign_toplevel_handle_v1 *toplevel) {
 	if (wlSeat != NULL) {
 		zwlr_foreign_toplevel_handle_v1_activate(toplevel, wlSeat);
+		wl_display_flush(wlDisplay);
 	} else {
 		g_print("Error: No seat.");
 	}
@@ -151,25 +152,22 @@ static void wl_registry_handle_global(void *, struct wl_registry *wlRegistryL, u
 }
 
 //struct for toplevel_manager_start/global listener
-static const struct wl_registry_listener wlRegistryListener = {
+const struct wl_registry_listener wlRegistryListener = {
 		.global = wl_registry_handle_global,
 		.global_remove = (void (*)(void *, struct wl_registry *, uint32_t)) not_care,
 };
 
-int toplevel_manager_runner() {
+void toplevel_manager_runner() {
 	wl_display_roundtrip(wlDisplay);
 	wl_display_flush(wlDisplay);
-	return (TRUE);
 }
 
-void toplevel_manager_start(ToplevelItManager *d) {
+void toplevel_manager_start_no_gdk(ToplevelItManager *d) {
 	tplManager = d;
-
+	
 	wlDisplay = wl_display_connect(NULL);
 	wlRegistry = wl_display_get_registry(wlDisplay);
 	wl_registry_add_listener(wlRegistry, &wlRegistryListener, NULL);
 	wl_display_roundtrip(wlDisplay);
 	wl_display_flush(wlDisplay);
-
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, G_SOURCE_FUNC(toplevel_manager_runner), NULL, NULL);
 }
