@@ -16,8 +16,8 @@ To build the library, run the following commands.
 
 ```
 make wlscan
-make #to build with gtk4
-make no-gdk #to build without gtk4
+make #to build with gdk-wayland
+make no-gdk #to build without gdk-wayland
 ```
 
 You can also install the library system-wide.
