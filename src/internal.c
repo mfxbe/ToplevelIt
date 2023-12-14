@@ -68,9 +68,16 @@ static void z_toplevel_handle_app(void *data, struct zwlr_foreign_toplevel_handl
     toplevelit_window_opened(win);
 }
 
+//small inactivate helper
+static void clear_helper(ToplevelItWindow * win, gpointer){
+	toplevelit_window_set_active_only(win, FALSE);
+}
+
 //handle state change of window
 static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_array *state) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
+	
+	toplevel_manager_runner();
 
 	uint32_t *entry;
 	gboolean isActive = FALSE;
@@ -87,7 +94,6 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
 				isActive = TRUE;
-				toplevelit_window_set_active_only(win, TRUE);
 				break;
 			default:
 				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
@@ -95,6 +101,11 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 		}
 		if (isActive == FALSE) {
 			toplevelit_window_set_active_only(win, FALSE);
+		} else {
+			GList* l = toplevelit_manager_get_windows(tplManager);
+			g_list_foreach(l, (GFunc) clear_helper, NULL);
+			
+			toplevelit_window_set_active_only(win, TRUE);
 		}
 	}
 }
