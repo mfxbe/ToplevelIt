@@ -44,10 +44,10 @@ G_DECLARE_FINAL_TYPE (ToplevelItWindow, toplevelit_window, TOPLEVELIT, WINDOW, G
 /**
  * toplevelit_manager_new:(constructor):
  *
- * Get a manager for handling hte toplevels. This usually is the first
+ * Create a manager for handling the toplevels. This usually is the first
  * step that needs to be done.
  *
- * Returns: (transfer full): Obj instance
+ * Returns: (transfer full): #ToplevelItManager
  **/
 ToplevelItManager *toplevelit_manager_new(void);
 
@@ -57,7 +57,7 @@ ToplevelItManager *toplevelit_manager_new(void);
  *
  * Returns all windows that are currently opened on all views.
  *
- * Returns: (element-type ToplevelIt.Window) (transfer container): GList
+ * Returns: #GList of #ToplevelItWindow
  **/
 GList *toplevelit_manager_get_windows(ToplevelItManager *self);
 
@@ -65,7 +65,7 @@ GList *toplevelit_manager_get_windows(ToplevelItManager *self);
 * toplevelit_manager_do_trip:
  * @self A #ToplevelItManager
  *
- * Make the wl_roundtrip manually.
+ * Make the wl_roundtrip manually. Most of the times this is not needed ToplevelIt does the roundtrip regularly.
  *
  **/
 void toplevelit_manager_do_trip(ToplevelItManager *self);
@@ -78,7 +78,7 @@ void toplevelit_manager_do_trip(ToplevelItManager *self);
  *
  * Returns the app id of the this window
  *
- * Returns: The AppID
+ * Returns: Application ID as GChar
  **/
 gchar *toplevelit_window_get_app_id(ToplevelItWindow *self);
 
@@ -88,7 +88,7 @@ gchar *toplevelit_window_get_app_id(ToplevelItWindow *self);
  *
  * Returns the app win of the this window. This is not per application.
  *
- * Returns: ID
+ * Returns: Window ID as Int
  **/
 int toplevelit_window_get_win_id(ToplevelItWindow *self);
 
