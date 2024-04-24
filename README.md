@@ -60,7 +60,7 @@ gcc example.c `pkg-config --libs --cflags gobject-2.0` -ltoplevelit  -o example
 ```
 
 ## Usage
-See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/master/src/toplevelit.h) or the [documentation](https://mfxbe.de/ToplevelIt/) for what can be done.
+See [`toplevelit.h`](https://github.com/mfxbe/ToplevelIt/blob/master/src/toplevelit.h) or the [documentation](https://mfxbe.de/ToplevelIt/) for what can be done.
 
 ## FAQ
 
