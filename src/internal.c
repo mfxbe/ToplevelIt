@@ -77,7 +77,7 @@ static void clear_helper(ToplevelItWindow * win, gpointer){
 static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_array *state) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
 	
-	toplevel_manager_runner();
+	toplevel_manager_runner(NULL);
 
 	uint32_t *entry;
 	gboolean isActive = FALSE;
@@ -168,12 +168,12 @@ const struct wl_registry_listener wlRegistryListener = {
 		.global_remove = (void (*)(void *, struct wl_registry *, uint32_t)) not_care,
 };
 
-void toplevel_manager_runner() {
+gboolean toplevel_manager_runner(void*) {
 	wl_display_roundtrip(wlDisplay);
-	wl_display_flush(wlDisplay);
+	return(1);
 }
 
-void toplevel_manager_start_no_gdk(ToplevelItManager *d) {
+void toplevel_manager_start(ToplevelItManager *d) {
 	tplManager = d;
 	
 	wlDisplay = wl_display_connect(NULL);
@@ -181,4 +181,6 @@ void toplevel_manager_start_no_gdk(ToplevelItManager *d) {
 	wl_registry_add_listener(wlRegistry, &wlRegistryListener, NULL);
 	wl_display_roundtrip(wlDisplay);
 	wl_display_flush(wlDisplay);
+	
+	g_timeout_add(150, (GSourceFunc) toplevel_manager_runner, NULL);
 }

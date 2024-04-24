@@ -65,7 +65,7 @@ GList *toplevelit_manager_get_windows(ToplevelItManager *self);
 * toplevelit_manager_do_trip:
  * @self A #ToplevelItManager
  *
- * Make the wl_roundtrip manually. Needed if gdk is not available.
+ * Make the wl_roundtrip manually.
  *
  **/
 void toplevelit_manager_do_trip(ToplevelItManager *self);

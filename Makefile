@@ -1,15 +1,7 @@
 all:
 	mkdir -p build/
 
-	gcc $(filter-out src/test.c, $(wildcard src/*.c)) -g -Wall -Wextra -rdynamic -std=gnu2x $(shell pkg-config --libs --cflags gtk4-wayland wayland-client) -shared -fPIC -o build/libtoplevelit.so -lm
-	cp src/toplevelit.h build/toplevelit.h
-	g-ir-scanner --warn-all --namespace=ToplevelIt --symbol-prefix=toplevelit --nsversion=1.0 --library=toplevelit --include=GObject-2.0 --library-path=./build  -I./build --no-libtool src/toplevelit.h -o build/ToplevelIt-1.0.gir
-	g-ir-compiler build/ToplevelIt-1.0.gir -o build/ToplevelIt-1.0.typelib
-
-no-gdk:
-	mkdir -p build/
-
-	gcc $(filter-out src/test.c src/integrate.c, $(wildcard src/*.c)) -g -Wall -Wextra -rdynamic -std=gnu2x $(shell pkg-config --libs --cflags gobject-2.0 wayland-client) -shared -fPIC -o build/libtoplevelit.so -lm
+	gcc $(filter-out src/test.c, $(wildcard src/*.c)) -g -Wall -Wextra -rdynamic -std=gnu2x $(shell pkg-config --libs --cflags gobject-2.0 wayland-client) -shared -fPIC -o build/libtoplevelit.so -lm
 	cp src/toplevelit.h build/toplevelit.h
 	g-ir-scanner --warn-all --namespace=ToplevelIt --symbol-prefix=toplevelit --nsversion=1.0 --library=toplevelit --include=GObject-2.0 --library-path=./build  -I./build --no-libtool src/toplevelit.h -o build/ToplevelIt-1.0.gir
 	g-ir-compiler build/ToplevelIt-1.0.gir -o build/ToplevelIt-1.0.typelib

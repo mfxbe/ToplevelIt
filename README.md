@@ -8,7 +8,6 @@ You can use ToplevelIt in C, and it should also play nicely with any programming
 * GObject
 * Wayland
 * A wayland-compositor supporting the foreign-toplevel protocol
-* Gtk4-Wayland (*optional*)
 
 ## Build
 
@@ -16,8 +15,7 @@ To build the library, run the following commands.
 
 ```
 make wlscan
-make #to build with gdk-wayland
-make no-gdk #to build without gdk-wayland
+make no-gdk
 ```
 
 You can also install the library system-wide.
@@ -70,4 +68,4 @@ See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/mas
 ToplevelIt is currently only using one wayland protocol to have as few dependencies as possible. This might or might not change in future.
 
 **Where can I get help?**    
-If you found any errors, feel free to create an issue. Other than that, you are welcome to contact me in the [Feritale Matrix](https://matrix.to/#/#feritale:tchncs.de) chat.
+If you found any errors, feel free to create an issue. Other than that, you are welcome to contact me ...
