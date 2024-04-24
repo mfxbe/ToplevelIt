@@ -76,8 +76,6 @@ static void clear_helper(ToplevelItWindow * win, gpointer){
 //handle state change of window
 static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_handle_v1 *, struct wl_array *state) {
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
-	
-	toplevel_manager_runner(NULL);
 
 	uint32_t *entry;
 	gboolean isActive = FALSE;
@@ -94,6 +92,7 @@ static void z_toplevel_handle_state(void *data, struct zwlr_foreign_toplevel_han
 				break;
 			case ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED:
 				isActive = TRUE;
+				g_print("is active %s", toplevelit_window_get_title(win));
 				break;
 			default:
 				toplevelit_window_set_state_only(win, TOPLEVELIT_WINDOW_STATUS_DEFAULT);
