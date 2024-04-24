@@ -15,7 +15,7 @@ To build the library, run the following commands.
 
 ```
 make wlscan
-make no-gdk
+make
 ```
 
 You can also install the library system-wide.
@@ -60,7 +60,7 @@ gcc example.c `pkg-config --libs --cflags gobject-2.0` -ltoplevelit  -o example
 ```
 
 ## Usage
-See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/master/src/toplevelit.h) or the [documentation](https://www.feritale.eu/docs/toplevelit/) for what can be done.
+See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/master/src/toplevelit.h) or the [documentation](https://mfxbe.de/ToplevelIt/) for what can be done.
 
 ## FAQ
 
@@ -68,4 +68,4 @@ See [`toplevelit.h`](https://www.feritale.eu/git/mfxbe/ToplevelIt/src/branch/mas
 ToplevelIt is currently only using one wayland protocol to have as few dependencies as possible. This might or might not change in future.
 
 **Where can I get help?**    
-If you found any errors, feel free to create an issue. Other than that, you are welcome to contact me ...
+If you found any errors, feel free to create an issue. Other than that, you are welcome to contact me at [contact23@mfxbe.de](mailto:contact23@mfxbe.de)
