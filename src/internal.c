@@ -58,6 +58,7 @@ static void z_toplevel_handle_close(void *data, struct zwlr_foreign_toplevel_han
 	ToplevelItWindow *win = (ToplevelItWindow *) data;
     toplevelit_window_closed(win);
 	toplevelit_manager_remove_window(tplManager, win);
+	g_object_unref(win);
 }
 
 //handling a newly opened toplevel
