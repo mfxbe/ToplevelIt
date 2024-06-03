@@ -19,6 +19,7 @@ void do_m_loop(){
 	for(int i=0; i<5; i++){
 		g_main_context_iteration(g_main_context_default(), FALSE);
 	}
+	sleep(1);
 }
 
 static void activate(GtkApplication *app){
